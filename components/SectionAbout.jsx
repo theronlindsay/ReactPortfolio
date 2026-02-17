@@ -27,7 +27,7 @@ export default function SectionAbout() {
   if (loading) return <div className="text-center p-10 text-grmd:pt-50een-400 font-mono animate-pulse">$ loading profile...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 pt-24 md:p-12  pb-24 md:pb-4 h-full flex flex-col justify-center items-center overflow-y-auto scrollbar-hide">
+    <div className="max-w-5xl mx-auto p-6 pt-50 md:p-12 md:pt-24 pb-24 md:pb-12 h-screen w-full overflow-y-auto scrollbar-hide">
       <TiltCard className="w-full">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -55,32 +55,36 @@ export default function SectionAbout() {
             <span className="text-zinc-200 ml-2">cat profile.md</span>
           </div>
 
-          {/* Profile Image */}
-          {profile?.imageUrl && (
-            <motion.div 
+          {/* Image + About Text — side by side on desktop */}
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 md:items-start">
+            {/* Profile Image */}
+            {profile?.imageUrl && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="md:w-2/5 flex-shrink-0"
+              >
+                <div className="text-zinc-600 text-xs mb-2">┌──────────── profile_photo.jpg ──────────┐</div>
+                <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-white/10 group">
+                  <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                </div>
+                <div className="text-zinc-600 text-xs mt-2">└─────────────────────────────────────────┘</div>
+              </motion.div>
+            )}
+
+            {/* About Text as terminal output */}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="my-4"
+              transition={{ delay: 0.5 }}
+              className="flex-1"
             >
-              <div className="text-zinc-600 text-xs mb-2">┌─── profile_photo.jpg ───┐</div>
-              <div className="relative w-full md:w-2/5 aspect-square rounded-lg overflow-hidden border border-white/10 group">
-                <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+              <div className="text-zinc-300 whitespace-pre-wrap leading-relaxed text-base md:text-lg">
+                {profile?.aboutText || 'No profile information available.'}
               </div>
-              <div className="text-zinc-600 text-xs mt-2">└─────────────────────────┘</div>
             </motion.div>
-          )}
-
-          {/* About Text as terminal output */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <div className="text-zinc-300 whitespace-pre-wrap leading-relaxed text-base md:text-lg pl-0">
-              {profile?.aboutText || 'No profile information available.'}
-            </div>
-          </motion.div>
+          </div>
 
           {/* Social Links as terminal commands */}
           {profile?.socialLinks?.length > 0 && (
@@ -104,10 +108,10 @@ export default function SectionAbout() {
                     href={link.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 glass-pill rounded-lg hover:border-white/20 transition-all group"
+                    className="flex items-center gap-2 px-5 py-3 glass-button-3d rounded-xl group"
                   >
-                    {link.icon && <IconRenderer className={`${link.icon} text-zinc-400 group-hover:text-green-400 text-lg`} />}
-                    <span className="text-sm text-zinc-400 group-hover:text-white">{link.platform}</span>
+                    {link.icon && <IconRenderer className={`${link.icon} text-zinc-400 group-hover:text-blue-400 text-lg relative z-10 transition-colors`} />}
+                    <span className="text-sm text-zinc-300 group-hover:text-white relative z-10 transition-colors font-medium">{link.platform}</span>
                   </a>
                 ))}
               </div>

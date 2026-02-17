@@ -31,10 +31,14 @@ export default function SectionEducation() {
   const technical = items.filter(i => i.type === 'Technical');
 
   const container = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
     show: {
       opacity: 1,
+      y: 0,
+      scale: 1,
       transition: {
+        duration: 0.5,
+        ease: 'easeOut',
         staggerChildren: 0.1
       }
     }
@@ -46,7 +50,7 @@ export default function SectionEducation() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-20 pt-50 pb-24 md:pb-4 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
+    <div className="max-w-7xl mx-auto p-20 pt-25 pb-24 md:pb-4 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
       <div className="grid md:grid-cols-2 gap-8 w-full max-w-5xl">
         <motion.div variants={container} initial="hidden" animate="show" className="glass-panel rounded-2xl p-6">
           <h3 className="text-xl mt-2 font-semibold text-blue-400 mb-6 border-b border-blue-900/30 pb-2">FORMAL EDUCATION</h3>

@@ -30,7 +30,7 @@ export default function SectionSkills() {
   const categories = [...new Set(items.map(i => i.category || 'Other'))];
 
   return (
-    <div className="max-w-7xl mx-auto p-6 pt-24 md:p-20 md:pt-50 pb-24 md:pb-4 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
+    <div className="max-w-7xl mx-auto p-6 pt-0 md:p-20 md:pt-24 pb-24 md:pb-4 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
         {categories.map((cat, catIndex) => (
           <motion.div 

@@ -22,11 +22,11 @@ export default function Home() {
   };
 
   return (
-    <main className="h-screen w-screen relative overflow-hidden flex flex-col items-center justify-center">
+    <main className="h-screen w-screen relative flex flex-col items-center">
       {/* Background/CRT Layer is handled in layout.js globally */}
       
       {/* Content Area */}
-      <div className="w-full h-full md:pt-20 mx-auto relative z-10">
+      <div className="w-full h-full mx-auto relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

@@ -39,11 +39,10 @@ export default function SectionPortfolio() {
     : items.filter(item => (item.tags || []).includes(selectedTag));
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden">
-      {/* Filter Bar — fixed above navbar on mobile, normal flow on desktop */}
-      {/* Wraps into rows on screens taller than 640px, scrolls horizontally on very short screens */}
-      <div className="fixed bottom-20 left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:static md:flex-none md:p-6 md:pb-2 md:px-12 md:pt-8 md:z-auto">
-        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center">
+    <div className="flex flex-col h-screen w-screen">
+      {/* Filter Bar — fixed on all screens: above bottom navbar on mobile, below top navbar on desktop */}
+      <div className="fixed bottom-22 left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:top-2 md:bottom-auto md:px-12 md:pt-20">
+        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center md:pb-30">
           {uniqueTags.map(tag => (
             <button
               key={tag}
@@ -61,7 +60,7 @@ export default function SectionPortfolio() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pt-4 md:px-12 pb-24 md:pb-4 overflow-y-auto h-full w-90w scrollbar-hide justify-items-center content-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pt-4 md:pt-60 md:px-12 pb-32 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start max-w-7xl mx-auto w-full">
         {filteredItems.map((item, index) => (
           <motion.div
             key={item._id}
@@ -86,8 +85,8 @@ export default function SectionPortfolio() {
               <CardTitle className="flex justify-between items-start">
                 <span className="text-xl font-semibold group-hover:text-blue-400 transition-colors">{item.title}</span>
                 {item.link && (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 text-zinc-500 hover:text-blue-400" />
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="glass-button-3d rounded-lg p-2">
+                    <ExternalLink className="w-4 h-4 text-zinc-400 relative z-10" />
                   </a>
                 )}
               </CardTitle>
