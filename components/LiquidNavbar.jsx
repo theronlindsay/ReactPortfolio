@@ -15,13 +15,13 @@ export default function LiquidNavbar({ activeTab, setActiveTab }) {
 
   return (
     <div className="fixed bottom-6 left-0 right-0 flex justify-center z-50 px-4 md:top-6 md:bottom-auto">
-      <div className="flex p-2 glass-navbar rounded-full">
+      <div className="flex p-2  glass-navbar rounded-full animate-float">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300",
+              "relative px-2.5 py-1.5 text-xs md:px-4 md:py-2 md:text-sm font-medium rounded-full transition-colors duration-300",
               activeTab === tab.id ? "text-white" : "text-zinc-400 hover:text-zinc-200"
             )}
             style={{ WebkitTapHighlightColor: 'transparent' }} // Remove mobile tap highlight

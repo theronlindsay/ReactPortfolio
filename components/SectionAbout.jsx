@@ -27,7 +27,7 @@ export default function SectionAbout() {
   if (loading) return <div className="text-center p-10 text-grmd:pt-50een-400 font-mono animate-pulse">$ loading profile...</div>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6 pt-50 md:p-12 md:pt-24 pb-24 md:pb-12 h-screen w-full overflow-y-auto scrollbar-hide">
+    <div className="max-w-5xl mx-auto p-6 pt-15 md:p-40 pb-24 md:pb-12 h-screen w-full overflow-y-auto scrollbar-hide">
       <TiltCard className="w-full">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

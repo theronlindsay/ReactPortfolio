@@ -41,11 +41,11 @@ export default function SectionPortfolio() {
   return (
     <div className="flex flex-col h-screen w-screen">
       {/* Filter Bar — fixed on all screens: above bottom navbar on mobile, below top navbar on desktop */}
-      <div className="fixed bottom-22 left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:top-2 md:bottom-auto md:px-12 md:pt-20">
-        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center md:pb-30">
+      <div className="fixed bottom-20 left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:top-2 md:bottom-auto md:px-12 md:pt-25 md:mb-25">
+        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-3 pt-3 animate-float">
           {uniqueTags.map(tag => (
             <button
-              key={tag}
+              key={tag} 
               onClick={() => setSelectedTag(tag)}
               className={`
                 px-4 py-1.5 rounded-full text-sm transition-all whitespace-nowrap border
@@ -60,7 +60,7 @@ export default function SectionPortfolio() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pt-4 md:pt-60 md:px-12 pb-32 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start max-w-7xl mx-auto w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pt-10 md:pt-70 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
         {filteredItems.map((item, index) => (
           <motion.div
             key={item._id}
@@ -84,11 +84,6 @@ export default function SectionPortfolio() {
             <CardHeader className="p-6 pb-2">
               <CardTitle className="flex justify-between items-start">
                 <span className="text-xl font-semibold group-hover:text-blue-400 transition-colors">{item.title}</span>
-                {item.link && (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="glass-button-3d rounded-lg p-2">
-                    <ExternalLink className="w-4 h-4 text-zinc-400 relative z-10" />
-                  </a>
-                )}
               </CardTitle>
               <div className="flex flex-wrap gap-2 mt-2">
                 {item.tags.map((tag, i) => (
@@ -100,7 +95,7 @@ export default function SectionPortfolio() {
             </CardHeader>
             
             <CardContent className="flex-grow space-y-4 p-6 pt-0">
-              {item.description && <p className="text-zinc-400 text-sm leading-relaxed">{item.description}</p>}
+              {item.description && <p className="text-zinc-400 text-lg leading-relaxed">{item.description}</p>}
               
               {item.customHtml && (
                 <div className="mt-4 p-2 border border-dashed border-zinc-800 rounded bg-black/50">
@@ -109,6 +104,18 @@ export default function SectionPortfolio() {
                    </div>
                    <div dangerouslySetInnerHTML={{ __html: item.customHtml }} />
                 </div>
+              )}
+
+              {item.link && (
+                <a 
+                  href={item.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="glass-button-3d rounded-xl px-5 py-3 mt-4 flex items-center justify-center gap-2 w-full"
+                >
+                  <span className="relative z-10 text-sm font-medium text-white">Learn more</span>
+                  <ExternalLink className="w-4 h-4 text-blue-300 relative z-10" />
+                </a>
               )}
             </CardContent>
           </Card>
