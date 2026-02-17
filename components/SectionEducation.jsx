@@ -46,7 +46,7 @@ export default function SectionEducation() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-20 pt-16 md:pt-50 pb-24 md:pb-12 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
+    <div className="max-w-7xl mx-auto p-2 pt-16 md:pt-50 pb-24 md:pb-12 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
       <div className="grid md:grid-cols-2 gap-8 w-full max-w-5xl">
         <TiltCard className="w-full">
         <motion.div variants={container} initial="hidden" animate="show" className="glass-panel rounded-2xl p-6">

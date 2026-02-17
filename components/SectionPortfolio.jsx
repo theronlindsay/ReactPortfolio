@@ -60,7 +60,7 @@ export default function SectionPortfolio() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pt-10 md:pt-70 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pb-40 md:pt-70 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
         {filteredItems.map((item, index) => (
           <motion.div
             key={item._id}
@@ -111,7 +111,7 @@ export default function SectionPortfolio() {
                   href={item.link} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="glass-button-3d rounded-xl px-5 py-3 mt-4 flex items-center justify-center gap-2 w-full"
+                  className="glass-button-3d rounded-xl px-5 py-3 mt-4 flex items-center justify-center gap-2 w-full !bg-blue-600 hover:!bg-blue-500"
                 >
                   <span className="relative z-10 text-sm font-medium text-white">Learn more</span>
                   <ExternalLink className="w-4 h-4 text-blue-300 relative z-10" />

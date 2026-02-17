@@ -28,6 +28,7 @@ export default function LiquidNavbar({ activeTab, setActiveTab }) {
           >
             {activeTab === tab.id && (
               <motion.div
+                layout="position"
                 layoutId="liquid-pill"
                 className="absolute inset-0 bg-blue-600 rounded-full -z-10 shadow-[0_0_10px_rgba(37,99,235,0.5)]"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}

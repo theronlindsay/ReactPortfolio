@@ -65,11 +65,9 @@ export default function SectionAbout() {
                 transition={{ delay: 0.3 }}
                 className="md:w-2/5 flex-shrink-0"
               >
-                <div className="text-zinc-600 text-xs mb-2">┌──────────── profile_photo.jpg ──────────┐</div>
                 <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-white/10 group">
                   <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                 </div>
-                <div className="text-zinc-600 text-xs mt-2">└─────────────────────────────────────────┘</div>
               </motion.div>
             )}
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import LiquidNavbar from '@/components/LiquidNavbar';
 import SectionPortfolio from '@/components/SectionPortfolio';
@@ -8,8 +8,20 @@ import SectionEducation from '@/components/SectionEducation';
 import SectionSkills from '@/components/SectionSkills';
 import SectionAbout from '@/components/SectionAbout';
 
+const VALID_TABS = ['portfolio', 'about', 'skills', 'education'];
+
 export default function Home() {
-  const [activeTab, setActiveTab] = useState('portfolio');
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Derive active tab from URL path (e.g. "/skills" -> "skills", "/" -> "portfolio")
+  const segment = pathname.replace(/^\//, '').toLowerCase();
+  const activeTab = VALID_TABS.includes(segment) ? segment : 'portfolio';
+
+  const setActiveTab = (tab) => {
+    const path = tab === 'portfolio' ? '/' : `/${tab}`;
+    router.push(path);
+  };
 
   const renderSection = () => {
     switch (activeTab) {
