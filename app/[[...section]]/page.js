@@ -16,10 +16,10 @@ export default function Home() {
 
   // Derive active tab from URL path (e.g. "/skills" -> "skills", "/" -> "portfolio")
   const segment = pathname.replace(/^\//, '').toLowerCase();
-  const activeTab = VALID_TABS.includes(segment) ? segment : 'portfolio';
+  const activeTab = VALID_TABS.includes(segment) ? segment : 'about';
 
   const setActiveTab = (tab) => {
-    const path = tab === 'portfolio' ? '/' : `/${tab}`;
+    const path = tab === 'about' ? '/' : `/${tab}`;
     router.push(path);
   };
 
@@ -29,7 +29,7 @@ export default function Home() {
       case 'education': return <SectionEducation />;
       case 'skills': return <SectionSkills />;
       case 'about': return <SectionAbout />;
-      default: return <SectionPortfolio />;
+      default: return <SectionAbout />;
     }
   };
 
