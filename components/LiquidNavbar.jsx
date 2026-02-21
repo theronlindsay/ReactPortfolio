@@ -14,8 +14,11 @@ export default function LiquidNavbar({ activeTab, setActiveTab }) {
   ];
 
   return (
-    <div className="fixed bottom-6 left-0 right-0 flex justify-center z-50 px-4 md:top-6 md:bottom-auto">
-      <div className="flex p-2  glass-navbar rounded-full animate-float">
+    <div className="fixed bottom-6 left-0 right-0 flex flex-col md:flex-col-reverse items-center justify-center z-50 px-4 md:top-6 md:bottom-auto gap-3 md:gap-4 pointer-events-none">
+      {activeTab === 'portfolio' && (
+        <div id="portfolio-filters-target" className="w-full pointer-events-auto flex justify-center empty:hidden" />
+      )}
+      <div className="flex p-2 glass-navbar rounded-full animate-float pointer-events-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}

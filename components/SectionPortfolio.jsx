@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,8 +13,10 @@ export default function SectionPortfolio() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTag, setSelectedTag] = useState('All');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const fetchItems = async () => {
       try {
         const res = await fetch('/api/portfolio');
@@ -40,27 +43,31 @@ export default function SectionPortfolio() {
 
   return (
     <div className="flex flex-col h-screen w-screen">
-      {/* Filter Bar — fixed on all screens: above bottom navbar on mobile, below top navbar on desktop */}
-      <div className="fixed bottom-[4.5rem] left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:top-2 md:bottom-auto md:px-12 md:pt-25 md:mb-25">
-        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-3 pt-3 animate-float md:max-h-24 md:overflow-y-auto md:-mr-4 md:pr-4">
-          {uniqueTags.map(tag => (
-            <button
-              key={tag} 
-              onClick={() => setSelectedTag(tag)}
-              className={`
-                px-4 py-1.5 rounded-full text-sm transition-all whitespace-nowrap border
-                ${selectedTag === tag 
-                  ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' 
-                  : 'glass-pill text-zinc-400 hover:border-white/20 hover:text-zinc-200'}
-              `}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      </div>
+      {mounted && document.getElementById('portfolio-filters-target')
+        ? createPortal(
+            <div className="w-full px-4 overflow-x-auto scrollbar-hide md:px-12 md:max-w-[80vw] mx-auto pointer-events-auto">
+              <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-3 pt-3 animate-float md:max-h-24 md:overflow-y-auto md:-mr-4 md:pr-4">
+                {uniqueTags.map(tag => (
+                  <button
+                    key={tag} 
+                    onClick={() => setSelectedTag(tag)}
+                    className={`
+                      px-4 py-1.5 rounded-full text-sm transition-all whitespace-nowrap border
+                      ${selectedTag === tag 
+                        ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' 
+                        : 'glass-pill text-zinc-400 hover:border-white/20 hover:text-zinc-200'}
+                    `}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>,
+            document.getElementById('portfolio-filters-target')
+          )
+        : null}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pb-40 md:pt-70 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pb-40 md:pt-48 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
         {filteredItems.map((item, index) => (
           <motion.div
             key={item._id}

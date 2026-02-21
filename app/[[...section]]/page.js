@@ -50,6 +50,7 @@ export default function Home() {
           >
             {renderSection()}
           </motion.div>
+          <break></break>
         </AnimatePresence>
       </div>
 
