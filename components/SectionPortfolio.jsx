@@ -41,8 +41,8 @@ export default function SectionPortfolio() {
   return (
     <div className="flex flex-col h-screen w-screen">
       {/* Filter Bar — fixed on all screens: above bottom navbar on mobile, below top navbar on desktop */}
-      <div className="fixed bottom-20 left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:top-2 md:bottom-auto md:px-12 md:pt-25 md:mb-25">
-        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-3 pt-3 animate-float">
+      <div className="fixed bottom-[4.5rem] left-0 right-0 z-40 px-4 overflow-x-auto scrollbar-hide md:top-2 md:bottom-auto md:px-12 md:pt-25 md:mb-25">
+        <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-3 pt-3 animate-float md:max-h-24 md:overflow-y-auto md:-mr-4 md:pr-4">
           {uniqueTags.map(tag => (
             <button
               key={tag} 
