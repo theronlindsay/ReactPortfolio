@@ -58,7 +58,7 @@ export default function Home() {
       <LiquidNavbar activeTab={activeTab} setActiveTab={setActiveTab} />
       
       {/* Decorative Text */}
-      <div className="fixed top-4 left-4 text-xs font-mono text-zinc-600 z-0 pointer-events-none hidden md:block">
+      <div className="fixed top-4 left-4 text-xs font-mono text-white-600 z-0 pointer-events-none hidden md:block">
         SYS.STATUS: ONLINE<br/>
         NO. 734-92
       </div>

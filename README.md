@@ -25,11 +25,13 @@ A modern, dynamic portfolio website built with **Next.js 16**, featuring a premi
 | **Education** | Timeline-style display split into formal education and certifications |
 
 ### 🔧 Admin Panel
-- Full CRUD management for all sections
-- Image uploads via **UploadThing**
-- Logo mode toggle for portfolio images
-- Tag management for portfolio filtering
-- Social link management with icon picker
+- Full CRUD management for all four content sections
+- Password-protected login with session-based authentication
+- Image uploads via **UploadThing** (no file size limits configured)
+- Logo mode toggle for portfolio project images
+- Comma-separated tag management for portfolio filtering
+- FontAwesome icon class picker for social links and skills
+- Emoji picker (via `emoji-picker-react`) for skill icons
 
 ---
 
@@ -49,6 +51,96 @@ Interactive terminal window with profile photo, bio text, and social links.
 Categorized skill panels with icon tiles in frosted glass cards.
 
 ![Skills](docs/screenshots/skills.png)
+
+---
+
+## 🔐 Admin Panel
+
+The admin panel is available at `/admin` and provides a full content management interface for the portfolio. Access is protected by a password set in your environment variables.
+
+### Login Screen
+
+A terminal-styled login gate prompts for the `ADMIN_PASSWORD` before allowing access. The session token is stored in `sessionStorage` for the duration of the browser session.
+
+![Admin Login](docs/screenshots/login.png
+
+---
+
+### 🗂️ Portfolio Manager
+
+Manage all projects displayed in the Portfolio section. Projects are shown in a responsive card grid.
+
+**Fields per project:**
+
+| Field | Description |
+|-------|-------------|
+| **Title** | Project name (required) |
+| **Image** | UploadThing image upload with live preview |
+| **Logo Mode** | Toggle to use `object-contain` instead of `object-cover` for logo/icon images |
+| **Description** | Short text description |
+| **Custom HTML** | Advanced: raw HTML rendered inside the card (monospace editor) |
+| **Tags** | Comma-separated list used for filter buttons on the public site |
+| **Link URL** | External URL opened when clicking the project card |
+
+![Portfolio Manager](docs/screenshots/portfolioOverview.png)
+
+![Add/Edit Project Dialog](docs/screenshots/portfolioEditor.png)
+
+---
+
+### 🎓 Education Manager
+
+Manage entries shown in the Education timeline. Two types are supported: **Formal** (degrees) and **Technical** (certifications/courses).
+
+**Fields per entry:**
+
+| Field | Description |
+|-------|-------------|
+| **Type** | `Formal` or `Technical` — controls which timeline column it appears in |
+| **Institution** | School, university, or platform name (required) |
+| **Degree / Certificate** | Degree name or certification title (required) |
+| **Start Date** | Free-text start date, e.g. `2018` |
+| **End Date** | Free-text end date, e.g. `2022` or `Present` |
+| **Description** | Optional notes or details |
+
+![Education Manager](docs/screenshots/educationOverview.png)
+
+![Add/Edit Education Dialog](docs/screenshots/educationEditor.png)
+
+---
+
+### 🛠️ Skills Manager
+
+Manage skill tiles shown in the Skills section. Skills are grouped by category and displayed with either a FontAwesome icon or an emoji.
+
+**Fields per skill:**
+
+| Field | Description |
+|-------|-------------|
+| **Skill Name** | Display name (required) |
+| **Type** | `FontAwesome Icon` or `Emoji` — switches the icon input |
+| **Value** | FA class string (e.g. `fa-brands fa-react`) or emoji character selected via picker |
+| **Category** | Group label, e.g. `Frontend`, `DevOps`, `Databases` — skills with the same category are visually grouped |
+
+![Skills Manager](docs/screenshots/skillsOverview.png)
+
+![Add/Edit Skill Dialog](docs/screenshots/skillsEditor.png)
+
+---
+
+### 👤 Profile Manager
+
+Manage the content displayed in the **About** terminal section. This is a single-document editor (not a list).
+
+**Fields:**
+
+| Field | Description |
+|-------|-------------|
+| **Profile Image** | UploadThing image upload displayed as a circular avatar. Hover to remove. |
+| **About Me** | Multi-line bio text rendered in the terminal window |
+| **Social Links** | Dynamic list of links. Each link has a **Platform** name, a **FontAwesome icon class** (e.g. `fa-brands fa-github`), and a **URL** |
+
+![Profile Manager](docs/screenshots/profileEditor.png)
 
 ---
 
