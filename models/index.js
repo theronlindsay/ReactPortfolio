@@ -35,7 +35,8 @@ const ProfileSchema = new mongoose.Schema({
   socialLinks: [{
     platform: String,
     url: String,
-    icon: String // FA Class
+    icon: String, // FA Class
+    openInNewTab: { type: Boolean, default: true },
   }],
 });
 

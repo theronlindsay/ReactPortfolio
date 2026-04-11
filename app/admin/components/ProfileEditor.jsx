@@ -31,7 +31,10 @@ export default function ProfileEditor() {
         setFormData({
             aboutText: data.data.aboutText || '',
             imageUrl: data.data.imageUrl || '',
-            socialLinks: data.data.socialLinks || []
+            socialLinks: (data.data.socialLinks || []).map((l) => ({
+              ...l,
+              openInNewTab: l.openInNewTab !== false,
+            })),
         });
       }
     } catch (err) {
@@ -61,7 +64,7 @@ export default function ProfileEditor() {
   const addLink = () => {
     setFormData({
       ...formData,
-      socialLinks: [...formData.socialLinks, { platform: '', url: '', icon: '' }]
+      socialLinks: [...formData.socialLinks, { platform: '', url: '', icon: '', openInNewTab: true }]
     });
   };
 
@@ -143,33 +146,47 @@ export default function ProfileEditor() {
             </div>
             
             {formData.socialLinks.map((link, index) => (
-              <div key={index} className="flex gap-4 items-end p-6 border border-zinc-800 rounded-xl bg-zinc-900/30 relative group">
-                <div className="space-y-2 flex-1">
-                  <Label className="text-xs text-zinc-400">Platform</Label>
-                  <Input 
-                    value={link.platform} 
-                    onChange={e => updateLink(index, 'platform', e.target.value)}
-                    placeholder="GitHub"
-                    className="bg-zinc-950 border-zinc-700"
-                  />
+              <div key={index} className="space-y-4 p-6 border border-zinc-800 rounded-xl bg-zinc-900/30 relative group">
+                <div className="flex flex-wrap gap-4 items-end">
+                  <div className="space-y-2 flex-1 min-w-[10rem]">
+                    <Label className="text-xs text-zinc-400">Platform</Label>
+                    <Input 
+                      value={link.platform} 
+                      onChange={e => updateLink(index, 'platform', e.target.value)}
+                      placeholder="GitHub"
+                      className="bg-zinc-950 border-zinc-700"
+                    />
+                  </div>
+                  <div className="space-y-2 flex-1 min-w-[10rem]">
+                    <Label className="text-xs text-zinc-400">Icon Class (FontAwesome)</Label>
+                    <Input 
+                      value={link.icon} 
+                      onChange={e => updateLink(index, 'icon', e.target.value)}
+                      placeholder="fa-brands fa-github"
+                      className="bg-zinc-950 border-zinc-700"
+                    />
+                  </div>
+                  <div className="space-y-2 flex-[2] min-w-[12rem] w-full sm:w-auto">
+                    <Label className="text-xs text-zinc-400">URL</Label>
+                    <Input 
+                      value={link.url} 
+                      onChange={e => updateLink(index, 'url', e.target.value)}
+                      placeholder="https://..."
+                      className="bg-zinc-950 border-zinc-700"
+                    />
+                  </div>
                 </div>
-                <div className="space-y-2 flex-1">
-                  <Label className="text-xs text-zinc-400">Icon Class (FontAwesome)</Label>
-                  <Input 
-                    value={link.icon} 
-                    onChange={e => updateLink(index, 'icon', e.target.value)}
-                    placeholder="fa-brands fa-github"
-                    className="bg-zinc-950 border-zinc-700"
+                <div className="flex items-center gap-2">
+                  <input
+                    id={`social-open-new-${index}`}
+                    type="checkbox"
+                    checked={link.openInNewTab !== false}
+                    onChange={(e) => updateLink(index, 'openInNewTab', e.target.checked)}
+                    className="size-4 rounded border-zinc-600 bg-zinc-950 text-blue-600 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
                   />
-                </div>
-                <div className="space-y-2 flex-[2]">
-                  <Label className="text-xs text-zinc-400">URL</Label>
-                  <Input 
-                    value={link.url} 
-                    onChange={e => updateLink(index, 'url', e.target.value)}
-                    placeholder="https://..."
-                    className="bg-zinc-950 border-zinc-700"
-                  />
+                  <Label htmlFor={`social-open-new-${index}`} className="text-sm font-normal text-zinc-300 cursor-pointer">
+                    Open in new tab
+                  </Label>
                 </div>
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button type="button" size="icon-xs" variant="ghost" onClick={() => removeLink(index)} className="hover:bg-red-900/20 hover:text-red-500">

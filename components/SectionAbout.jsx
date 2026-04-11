@@ -117,18 +117,22 @@ export default function SectionAbout() {
                 <span className="text-zinc-200 ml-2">ls ./links/</span>
               </div>
               <div className="flex flex-wrap gap-3">
-                {profile.socialLinks.map((link, i) => (
-                  <a 
-                    key={i} 
-                    href={link.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-3 glass-button-3d rounded-xl group"
-                  >
-                    {link.icon && <IconRenderer className={`${link.icon} text-zinc-400 group-hover:text-blue-400 text-lg relative z-10 transition-colors`} />}
-                    <span className="text-sm text-zinc-300 group-hover:text-white relative z-10 transition-colors font-medium">{link.platform}</span>
-                  </a>
-                ))}
+                {profile.socialLinks.map((link, i) => {
+                  const openInNewTab = link.openInNewTab !== false;
+                  return (
+                    <a
+                      key={i}
+                      href={link.url}
+                      {...(openInNewTab
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
+                      className="flex items-center gap-2 px-5 py-3 glass-button-3d rounded-xl group"
+                    >
+                      {link.icon && <IconRenderer className={`${link.icon} text-zinc-400 group-hover:text-blue-400 text-lg relative z-10 transition-colors`} />}
+                      <span className="text-sm text-zinc-300 group-hover:text-white relative z-10 transition-colors font-medium">{link.platform}</span>
+                    </a>
+                  );
+                })}
               </div>
             </motion.div>
           )}

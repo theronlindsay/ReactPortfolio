@@ -3,18 +3,20 @@ import { NextResponse } from 'next/server';
 export async function POST(req) {
   try {
     const { password } = await req.json();
-    const adminPassword = process.env.ADMIN_PASSWORD;
+    const expected = String(process.env.ADMIN_PASSWORD ?? '').trim();
 
-    if (!adminPassword) {
+    if (!expected) {
       return NextResponse.json(
         { success: false, error: 'Admin password not configured' },
         { status: 500 }
       );
     }
 
-    if (password === adminPassword) {
+    const submitted = typeof password === 'string' ? password.trim() : '';
+
+    if (submitted === expected) {
       // Simple token: base64 of password + timestamp (not production-grade, but functional)
-      const token = Buffer.from(`${adminPassword}:${Date.now()}`).toString('base64');
+      const token = Buffer.from(`${expected}:${Date.now()}`).toString('base64');
       return NextResponse.json({ success: true, token });
     }
 
