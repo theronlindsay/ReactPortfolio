@@ -29,7 +29,7 @@ export default function SectionSkills() {
 
   if (loading) {
     return (
-      <div className="flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-16 pb-24 md:pt-24 md:pb-4">
+      <div className="flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-16 pb-44 md:pt-24 md:pb-4">
         <TerminalLoading cwd="~/skills" command="ls -la skills/" />
       </div>
     );
@@ -39,7 +39,7 @@ export default function SectionSkills() {
   const categories = [...new Set(items.map(i => i.category || 'Other'))];
 
   return (
-    <div className="max-w-7xl mx-auto p-6 pt-0 md:p-20 md:pt-24 pb-24 md:pb-4 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
+    <div className="mx-auto flex h-full max-w-7xl flex-col items-center overflow-y-auto p-6 pt-0 pb-44 scrollbar-hide md:p-20 md:pt-24 md:pb-4">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
         {categories.map((cat, catIndex) => (
           <motion.div 

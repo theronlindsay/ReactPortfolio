@@ -30,14 +30,14 @@ export default function SectionAbout() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen w-full items-center justify-center overflow-y-auto px-6 py-16">
+      <div className="flex min-h-screen w-full items-center justify-center overflow-y-auto px-6 pt-16 pb-44 md:py-16">
         <TerminalLoading cwd="~/profile" command="cat profile.md" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 pt-15 md:p-40 pb-24 md:pb-12 h-screen w-full overflow-y-auto scrollbar-hide">
+    <div className="mx-auto h-screen w-full max-w-5xl overflow-y-auto p-6 pt-15 pb-44 scrollbar-hide md:p-40 md:pb-12">
       <TiltCard className="w-full">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

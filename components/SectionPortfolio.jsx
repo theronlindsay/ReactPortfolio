@@ -48,7 +48,7 @@ export default function SectionPortfolio() {
       {mounted && document.getElementById('portfolio-filters-target')
         ? createPortal(
             <div className="w-full px-4 overflow-x-auto scrollbar-hide md:px-12 md:max-w-[80vw] mx-auto pointer-events-auto">
-              <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-3 pt-3 animate-float md:max-h-24 md:overflow-y-auto md:-mr-4 md:pr-4">
+              <div className="flex gap-2 min-[640px]:flex-wrap min-[640px]:justify-center pb-1 pt-2 animate-float md:max-h-24 md:overflow-y-auto md:pb-3 md:pt-3 md:-mr-4 md:pr-4">
                 {uniqueTags.map(tag => (
                   <button
                     key={tag} 
@@ -69,7 +69,7 @@ export default function SectionPortfolio() {
           )
         : null}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pb-56 md:pt-64 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
+      <div className="mx-auto grid h-full grid-cols-1 content-start justify-items-center gap-6 overflow-y-auto p-6 pb-64 scrollbar-hide md:max-w-[80vw] md:grid-cols-2 md:px-12 md:pt-64 md:pb-8 lg:grid-cols-3">
         {loading ? (
           <motion.div
             className="col-span-full flex w-full justify-center pt-4 md:pt-8"

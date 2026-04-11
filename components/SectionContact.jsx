@@ -108,7 +108,7 @@ export default function SectionContact() {
   const showOtherField = method === 'other';
 
   return (
-    <div className="mx-auto flex h-screen w-full max-w-2xl flex-col items-center overflow-y-auto p-6 pb-56 pt-20 scrollbar-hide md:pt-32 md:pb-12">
+    <div className="mx-auto flex h-screen w-full max-w-2xl flex-col items-center overflow-y-auto p-6 pt-20 pb-64 scrollbar-hide md:pt-32 md:pb-12">
       <TiltCard className="w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

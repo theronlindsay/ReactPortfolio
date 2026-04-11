@@ -30,7 +30,7 @@ export default function SectionEducation() {
 
   if (loading) {
     return (
-      <div className="flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-16 pb-24 md:pt-50 md:pb-12">
+      <div className="flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-16 pb-44 md:pt-50 md:pb-12">
         <TerminalLoading cwd="~/education" command="tail -f timeline.log" />
       </div>
     );
@@ -55,7 +55,7 @@ export default function SectionEducation() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-2 pt-16 md:pt-50 pb-24 md:pb-12 overflow-y-auto h-full scrollbar-hide flex flex-col items-center">
+    <div className="mx-auto flex h-full max-w-7xl flex-col items-center overflow-y-auto p-2 pt-16 pb-44 scrollbar-hide md:pt-50 md:pb-12">
       <div className="grid md:grid-cols-2 gap-8 w-full max-w-5xl">
         <TiltCard className="w-full">
         <motion.div variants={container} initial="hidden" animate="show" className="glass-panel rounded-2xl p-6">
