@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -89,8 +90,15 @@ export default function ProfileEditor() {
             <Label className="text-base">Profile Image</Label>
             <div className="border border-zinc-800 rounded-lg p-6 bg-zinc-900/30">
                 {formData.imageUrl ? (
-                    <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-2 border-zinc-700 group">
-                        <img src={formData.imageUrl} alt="Profile" className="w-full h-full object-cover" />
+                    <div className="relative mx-auto h-40 w-40 overflow-hidden rounded-full border-2 border-zinc-700 group">
+                        <Image
+                          src={formData.imageUrl}
+                          alt="Profile"
+                          fill
+                          unoptimized
+                          sizes="160px"
+                          className="object-cover"
+                        />
                         <button
                             type="button"
                             onClick={() => setFormData({ ...formData, imageUrl: '' })}

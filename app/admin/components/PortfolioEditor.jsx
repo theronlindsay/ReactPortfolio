@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -133,7 +134,14 @@ export default function PortfolioEditor() {
                 <Label>Image</Label>
                 <div className="flex items-center gap-4">
                   {formData.imageUrl && (
-                    <img src={formData.imageUrl} alt="Preview" className={`w-16 h-16 rounded border border-zinc-800 ${formData.isLogo ? 'object-contain p-2 bg-zinc-900/10' : 'object-cover'}`} />
+                    <Image
+                      src={formData.imageUrl}
+                      alt="Preview"
+                      width={64}
+                      height={64}
+                      unoptimized
+                      className={`rounded border border-zinc-800 ${formData.isLogo ? 'object-contain p-2 bg-zinc-900/10' : 'object-cover'}`}
+                    />
                   )}
                   <UploadButton
                     endpoint="imageUploader"
@@ -207,11 +215,14 @@ export default function PortfolioEditor() {
         {items.map(item => (
           <Card key={item._id} className="bg-zinc-950 border-zinc-800 text-zinc-100 overflow-hidden">
             {item.imageUrl && (
-              <div className={`h-40 w-full overflow-hidden relative ${item.isLogo ? 'p-4 flex items-center justify-center' : ''}`}>
-                <img 
-                  src={item.imageUrl} 
-                  alt={item.title} 
-                  className={`w-full h-full ${item.isLogo ? 'object-contain' : 'object-cover'}`} 
+              <div className={`relative h-40 w-full overflow-hidden ${item.isLogo ? 'p-4 flex items-center justify-center' : ''}`}>
+                <Image
+                  src={item.imageUrl}
+                  alt={item.title}
+                  fill
+                  unoptimized
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className={item.isLogo ? 'object-contain' : 'object-cover'}
                 />
               </div>
             )}

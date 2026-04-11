@@ -111,12 +111,12 @@ export default function AdminDashboard() {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    // Check if already authenticated via session
-    const token = sessionStorage.getItem('admin_token');
-    if (token) {
-      setAuthenticated(true);
-    }
-    setChecking(false);
+    // Defer reads so we don't set state synchronously in the effect body (react-hooks/set-state-in-effect).
+    queueMicrotask(() => {
+      const token = sessionStorage.getItem('admin_token');
+      setAuthenticated(Boolean(token));
+      setChecking(false);
+    });
   }, []);
 
   const handleLogout = () => {

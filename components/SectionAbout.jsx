@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import IconRenderer from '@/components/IconRenderer';
 import TiltCard from '@/components/TiltCard';
@@ -74,8 +75,15 @@ export default function SectionAbout() {
                 transition={{ delay: 0.3 }}
                 className="md:w-2/5 flex-shrink-0"
               >
-                <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-white/10 group">
-                  <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                <div className="group relative aspect-square w-full overflow-hidden rounded-lg border border-white/10">
+                  <Image
+                    src={profile.imageUrl}
+                    alt="Profile"
+                    fill
+                    unoptimized
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+                  />
                 </div>
               </motion.div>
             )}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export default function TiltCard({ children, className = "" }) {
@@ -43,9 +43,11 @@ export default function TiltCard({ children, className = "" }) {
     y.set(0);
   };
 
-  // Generate random duration for the floating effect to make multiple cards feel organic
-  const duration = Math.random() * 2 + 3; // Random between 3s and 5s
-  const yOffset = Math.random() * 5 + 5; // Random likely 5px to 10px
+  // Lazy initial state runs once per mount (avoids Math.random during render body for eslint react-hooks/purity).
+  const [{ duration, yOffset }] = useState(() => ({
+    duration: Math.random() * 2 + 3,
+    yOffset: Math.random() * 5 + 5,
+  }));
 
   return (
     <motion.div

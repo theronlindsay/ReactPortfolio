@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -90,11 +91,14 @@ export default function SectionPortfolio() {
           <TiltCard>
           <Card className="glass-panel glass-panel-hover text-zinc-100 overflow-hidden transition-all duration-300 group h-full flex flex-col rounded-2xl">
             {item.imageUrl && (
-              <div className={`h-48 overflow-hidden relative ${item.isLogo ? 'p-4' : ''}`}>
-                <img 
-                  src={item.imageUrl} 
-                  alt={item.title} 
-                  className={`w-full h-full ${item.isLogo ? 'object-contain' : 'object-cover grayscale group-hover:grayscale-0'} transition-all duration-500`} 
+              <div className={`relative h-48 overflow-hidden ${item.isLogo ? 'p-4' : ''}`}>
+                <Image
+                  src={item.imageUrl}
+                  alt={item.title}
+                  fill
+                  unoptimized
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className={`${item.isLogo ? 'object-contain' : 'object-cover grayscale group-hover:grayscale-0'} transition-all duration-500`}
                 />
               </div>
             )}
