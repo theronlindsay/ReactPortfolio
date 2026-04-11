@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import TiltCard from '@/components/TiltCard';
+import { pauseForDebugLoading } from '@/lib/debug-loading';
+import TerminalLoading from '@/components/TerminalLoading';
 
 export default function SectionEducation() {
   const [items, setItems] = useState([]);
@@ -19,13 +21,20 @@ export default function SectionEducation() {
       } catch (err) {
         console.error(err);
       } finally {
+        await pauseForDebugLoading();
         setLoading(false);
       }
     };
     fetchItems();
   }, []);
 
-  if (loading) return <div className="text-center p-10 text-blue-400 animate-pulse">LOADING DATA...</div>;
+  if (loading) {
+    return (
+      <div className="flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-16 pb-24 md:pt-50 md:pb-12">
+        <TerminalLoading cwd="~/education" command="tail -f timeline.log" />
+      </div>
+    );
+  }
 
   const formal = items.filter(i => i.type === 'Formal');
   const technical = items.filter(i => i.type === 'Technical');

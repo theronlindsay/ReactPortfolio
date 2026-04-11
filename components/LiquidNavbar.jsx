@@ -11,6 +11,7 @@ export default function LiquidNavbar({ activeTab, setActiveTab }) {
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'education', label: 'Education' },
+    { id: 'contact', label: 'Contact Me' },
   ];
 
   return (

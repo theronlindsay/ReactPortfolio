@@ -5,6 +5,13 @@ export async function POST(request) {
   const { password } = await request.json();
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[admin-login] dev — credentials (server terminal):', {
+      ADMIN_PASSWORD_from_env: ADMIN_PASSWORD ?? '(missing)',
+      submitted_password: password,
+    });
+  }
+
   if (password === ADMIN_PASSWORD) {
     const cookieStore = await cookies();
     cookieStore.set('admin_session', 'true', {

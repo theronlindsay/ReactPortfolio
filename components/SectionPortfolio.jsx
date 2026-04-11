@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { ExternalLink, Code } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TiltCard from '@/components/TiltCard';
+import { pauseForDebugLoading } from '@/lib/debug-loading';
+import TerminalLoading from '@/components/TerminalLoading';
 
 export default function SectionPortfolio() {
   const [items, setItems] = useState([]);
@@ -25,13 +27,12 @@ export default function SectionPortfolio() {
       } catch (err) {
         console.error(err);
       } finally {
+        await pauseForDebugLoading();
         setLoading(false);
       }
     };
     fetchItems();
   }, []);
-
-  if (loading) return <div className="text-center p-10 text-blue-400 animate-pulse">LOADING DATA...</div>;
 
   // Extract unique tags
   const uniqueTags = ['All', ...new Set(items.flatMap(item => item.tags || []))].filter(Boolean);
@@ -67,8 +68,18 @@ export default function SectionPortfolio() {
           )
         : null}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pb-40 md:pt-48 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
-        {filteredItems.map((item, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 pb-56 md:pt-64 md:px-12 md:pb-8 overflow-y-auto h-full scrollbar-hide justify-items-center content-start md:max-w-[80vw] mx-auto">
+        {loading ? (
+          <motion.div
+            className="col-span-full flex w-full justify-center pt-4 md:pt-8"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            <TerminalLoading cwd="~/portfolio" command="curl -s api/portfolio | jq ." />
+          </motion.div>
+        ) : (
+        filteredItems.map((item, index) => (
           <motion.div
             key={item._id}
             initial={{ opacity: 0, y: 20 }}
@@ -128,7 +139,8 @@ export default function SectionPortfolio() {
           </Card>
           </TiltCard>
         </motion.div>
-        ))}
+        ))
+        )}
       </div>
     </div>
   );

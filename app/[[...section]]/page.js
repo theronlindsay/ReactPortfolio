@@ -7,8 +7,9 @@ import SectionPortfolio from '@/components/SectionPortfolio';
 import SectionEducation from '@/components/SectionEducation';
 import SectionSkills from '@/components/SectionSkills';
 import SectionAbout from '@/components/SectionAbout';
+import SectionContact from '@/components/SectionContact';
 
-const VALID_TABS = ['portfolio', 'about', 'skills', 'education'];
+const VALID_TABS = ['portfolio', 'about', 'skills', 'education', 'contact'];
 
 export default function Home() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function Home() {
       case 'education': return <SectionEducation />;
       case 'skills': return <SectionSkills />;
       case 'about': return <SectionAbout />;
+      case 'contact': return <SectionContact />;
       default: return <SectionAbout />;
     }
   };
@@ -50,7 +52,6 @@ export default function Home() {
           >
             {renderSection()}
           </motion.div>
-          <break></break>
         </AnimatePresence>
       </div>
 

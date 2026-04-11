@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import TiltCard from '@/components/TiltCard';
 import IconRenderer from '@/components/IconRenderer';
+import { pauseForDebugLoading } from '@/lib/debug-loading';
+import TerminalLoading from '@/components/TerminalLoading';
 
 export default function SectionSkills() {
   const [items, setItems] = useState([]);
@@ -18,13 +20,20 @@ export default function SectionSkills() {
       } catch (err) {
         console.error(err);
       } finally {
+        await pauseForDebugLoading();
         setLoading(false);
       }
     };
     fetchItems();
   }, []);
 
-  if (loading) return <div className="text-center p-10 text-blue-400 animate-pulse">LOADING DATA...</div>;
+  if (loading) {
+    return (
+      <div className="flex h-full w-full flex-col items-center overflow-y-auto px-6 pt-16 pb-24 md:pt-24 md:pb-4">
+        <TerminalLoading cwd="~/skills" command="ls -la skills/" />
+      </div>
+    );
+  }
 
   // Group by category if desired, or just list
   const categories = [...new Set(items.map(i => i.category || 'Other'))];

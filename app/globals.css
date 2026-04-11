@@ -119,7 +119,22 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* Firefox: transparent track; thumb left to the browser */
+    scrollbar-color: auto transparent;
   }
+
+  *::-webkit-scrollbar {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
   body {
     @apply text-foreground;
     background: url('https://p7h2gynp3b.ufs.sh/f/QwfPGNjwO1pr8uqjp0h2EDzBhpeb5C6ZtJNq4YRwKj7cuQAf') no-repeat center center fixed;
@@ -306,4 +321,113 @@
     0 1px 0 0 rgba(10, 10, 15, 0.5),
     0 2px 8px rgba(0, 0, 0, 0.4),
     0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+/* TipTap (contact form) — dark glass to match site */
+.contact-editor .tiptap {
+  min-height: 11rem;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+.contact-editor .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: oklch(0.55 0.02 260);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.contact-editor .tiptap h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.4em 0;
+}
+.contact-editor .tiptap h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0.4em 0;
+}
+.contact-editor .tiptap h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.4em 0;
+}
+/*
+ * TipTap / ProseMirror lists: Tailwind preflight uses list-style: none, and many
+ * resets use display:flex on li, which hides native ::marker. Draw bullets/numbers explicitly.
+ */
+.contact-editor .tiptap ul,
+.contact-editor .tiptap ol {
+  list-style: none;
+  margin: 0.4em 0;
+  padding-left: 0;
+}
+
+.contact-editor .tiptap ul > li,
+.contact-editor .tiptap ol > li {
+  position: relative;
+  display: block !important;
+  padding-left: 1.75rem;
+  margin: 0.2em 0;
+}
+
+.contact-editor .tiptap ul > li::before {
+  content: '•';
+  position: absolute;
+  left: 0.45rem;
+  top: 0.05em;
+  color: oklch(0.88 0.02 260);
+  font-weight: 700;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.contact-editor .tiptap ol {
+  counter-reset: contact-ol-item;
+}
+
+.contact-editor .tiptap ol > li {
+  counter-increment: contact-ol-item;
+}
+
+.contact-editor .tiptap ol > li::before {
+  content: counter(contact-ol-item) '.';
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  min-width: 1.35rem;
+  padding-right: 0.35rem;
+  text-align: right;
+  box-sizing: content-box;
+  color: oklch(0.88 0.02 260);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.contact-editor .tiptap ol ol {
+  counter-reset: contact-ol-item;
+}
+
+.contact-editor .tiptap ol ol > li::before {
+  content: counter(contact-ol-item, lower-alpha) '.';
+}
+
+.contact-editor .tiptap ul ul > li::before {
+  content: '◦';
+  left: 0.35rem;
+  font-weight: 600;
+}
+.contact-editor .tiptap blockquote {
+  border-left: 3px solid rgba(255, 255, 255, 0.18);
+  padding-left: 0.85rem;
+  margin: 0.5em 0;
+  color: oklch(0.78 0.02 260);
+}
+.contact-editor .tiptap a {
+  color: #60a5fa;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.contact-editor .tiptap strong {
+  font-weight: 600;
 }

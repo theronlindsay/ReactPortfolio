@@ -162,7 +162,7 @@ Manage the content displayed in the **About** terminal section. This is a single
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
+- [Bun](https://bun.sh) 1.1+
 - MongoDB instance (local or Atlas)
 - UploadThing account & token
 
@@ -174,7 +174,7 @@ git clone https://github.com/yourusername/reactportfolio.git
 cd reactportfolio
 
 # Install dependencies
-npm install
+bun install
 ```
 
 ### Environment Variables
@@ -190,7 +190,7 @@ ADMIN_PASSWORD=your-admin-password
 ### Development
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) for the portfolio and [http://localhost:3000/admin](http://localhost:3000/admin) for the admin panel.
@@ -198,8 +198,8 @@ Open [http://localhost:3000](http://localhost:3000) for the portfolio and [http:
 ### Production Build
 
 ```bash
-npm run build
-npm start
+bun run build
+bun start
 ```
 
 ---

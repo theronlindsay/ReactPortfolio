@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import IconRenderer from '@/components/IconRenderer';
 import TiltCard from '@/components/TiltCard';
+import { pauseForDebugLoading } from '@/lib/debug-loading';
+import TerminalLoading from '@/components/TerminalLoading';
 
 export default function SectionAbout() {
   const [profile, setProfile] = useState(null);
@@ -18,13 +20,20 @@ export default function SectionAbout() {
       } catch (err) {
         console.error(err);
       } finally {
+        await pauseForDebugLoading();
         setLoading(false);
       }
     };
     fetchProfile();
   }, []);
 
-  if (loading) return <div className="text-center p-10 text-grmd:pt-50een-400 font-mono animate-pulse">$ loading profile...</div>;
+  if (loading) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center overflow-y-auto px-6 py-16">
+        <TerminalLoading cwd="~/profile" command="cat profile.md" />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto p-6 pt-15 md:p-40 pb-24 md:pb-12 h-screen w-full overflow-y-auto scrollbar-hide">
