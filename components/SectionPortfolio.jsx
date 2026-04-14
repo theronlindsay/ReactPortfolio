@@ -89,21 +89,32 @@ export default function SectionPortfolio() {
             layout // Animate layout changes when filtering
           >
           <TiltCard>
-          <Card className="glass-panel glass-panel-hover text-zinc-100 overflow-hidden transition-all duration-300 group h-full flex flex-col rounded-2xl">
+          <Card className="glass-panel glass-panel-hover text-zinc-100 overflow-hidden transition-all duration-300 group h-full flex flex-col gap-4 rounded-2xl p-0">
             {item.imageUrl && (
-              <div className={`relative h-48 overflow-hidden ${item.isLogo ? 'p-4' : ''}`}>
-                <Image
-                  src={item.imageUrl}
-                  alt={item.title}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className={`${item.isLogo ? 'object-contain' : 'object-cover grayscale group-hover:grayscale-0'} transition-all duration-500`}
-                />
+              <div
+                className={`relative w-full overflow-hidden ${item.isLogo ? 'flex h-48 flex-col' : 'h-48'}`}
+              >
+                {item.isLogo ? (
+                  <div className="h-7 w-full shrink-0" aria-hidden />
+                ) : null}
+                <div className={`relative w-full overflow-hidden ${item.isLogo ? 'min-h-0 flex-1' : 'h-full'}`}>
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.title}
+                    fill
+                    unoptimized
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className={`${
+                      item.isLogo
+                        ? 'object-contain object-center'
+                        : 'h-full w-full object-cover object-top grayscale group-hover:grayscale-0'
+                    } transition-all duration-500`}
+                  />
+                </div>
               </div>
             )}
             
-            <CardHeader className="p-6 pb-2">
+            <CardHeader className={`px-6 pb-2 ${item.imageUrl ? 'pt-1' : 'pt-6'}`}>
               <CardTitle className="flex justify-between items-start">
                 <span className="text-xl font-semibold group-hover:text-blue-400 transition-colors">{item.title}</span>
               </CardTitle>

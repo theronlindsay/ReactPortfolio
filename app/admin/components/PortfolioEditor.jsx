@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { UploadButton } from '@/utils/uploadthing';
-import { Trash2, Edit, Plus } from 'lucide-react'; // Assuming lucide-react is installed with shadcn
+import { Trash2, Edit, Plus, ChevronUp, ChevronDown } from 'lucide-react'; // Assuming lucide-react is installed with shadcn
 import { Switch } from '@/components/ui/switch';
 
 export default function PortfolioEditor() {
@@ -79,6 +79,26 @@ export default function PortfolioEditor() {
       fetchItems();
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const moveItem = async (fromIndex, toIndex) => {
+    if (toIndex < 0 || toIndex >= items.length) return;
+    const next = [...items];
+    const [removed] = next.splice(fromIndex, 1);
+    next.splice(toIndex, 0, removed);
+    const orderedIds = next.map((i) => i._id);
+    setItems(next);
+    try {
+      const res = await fetch('/api/portfolio/reorder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderedIds }),
+      });
+      if (!res.ok) throw new Error('Reorder failed');
+    } catch (err) {
+      console.error(err);
+      fetchItems();
     }
   };
 
@@ -212,7 +232,7 @@ export default function PortfolioEditor() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {items.map(item => (
+        {items.map((item, index) => (
           <Card key={item._id} className="bg-zinc-950 border-zinc-800 text-zinc-100 overflow-hidden">
             {item.imageUrl && (
               <div className={`relative h-40 w-full overflow-hidden ${item.isLogo ? 'p-4 flex items-center justify-center' : ''}`}>
@@ -229,13 +249,39 @@ export default function PortfolioEditor() {
             <CardHeader>
               <CardTitle className="truncate">{item.title}</CardTitle>
             </CardHeader>
-            <CardFooter className="flex justify-end gap-2">
-              <Button size="icon" variant="ghost" onClick={() => startEdit(item)}>
-                <Edit className="w-4 h-4 text-blue-400" />
-              </Button>
-              <Button size="icon" variant="ghost" onClick={() => handleDelete(item._id)}>
-                <Trash2 className="w-4 h-4 text-red-400" />
-              </Button>
+            <CardFooter className="flex items-center justify-between gap-2">
+              <div className="flex gap-1">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="outline"
+                  className="border-zinc-700"
+                  disabled={index === 0}
+                  onClick={() => moveItem(index, index - 1)}
+                  aria-label="Move project up"
+                >
+                  <ChevronUp className="w-4 h-4" />
+                </Button>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="outline"
+                  className="border-zinc-700"
+                  disabled={index === items.length - 1}
+                  onClick={() => moveItem(index, index + 1)}
+                  aria-label="Move project down"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button size="icon" variant="ghost" onClick={() => startEdit(item)}>
+                  <Edit className="w-4 h-4 text-blue-400" />
+                </Button>
+                <Button size="icon" variant="ghost" onClick={() => handleDelete(item._id)}>
+                  <Trash2 className="w-4 h-4 text-red-400" />
+                </Button>
+              </div>
             </CardFooter>
           </Card>
         ))}

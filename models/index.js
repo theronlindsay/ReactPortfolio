@@ -8,6 +8,7 @@ const PortfolioItemSchema = new mongoose.Schema({
   isLogo: { type: Boolean, default: false },
   tags: [{ type: String }],
   link: { type: String },
+  sortOrder: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -21,7 +21,7 @@ export default function LiquidNavbar({ activeTab, setActiveTab }) {
 
   return (
     <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-50 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-0 sm:pb-[max(1.25rem,env(safe-area-inset-bottom,0px))] md:top-4 md:bottom-auto md:pb-0">
-      <div className="mx-auto flex w-full min-w-0 max-w-none min-[800px]:max-w-[75vw] flex-col items-stretch justify-center gap-1 px-0.5 sm:gap-1.5 sm:px-1 md:flex-col-reverse md:gap-3 md:px-2">
+      <div className="mx-auto flex w-full min-w-0 max-w-none min-[800px]:max-w-[72vw] flex-col items-stretch justify-center gap-1 px-0.5 sm:gap-1.5 sm:px-1 md:flex-col-reverse md:gap-3 md:px-2">
         {activeTab === 'portfolio' && (
           <div id="portfolio-filters-target" className="pointer-events-auto flex w-full justify-center empty:hidden" />
         )}
