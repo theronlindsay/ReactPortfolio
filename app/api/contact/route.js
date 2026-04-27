@@ -19,23 +19,18 @@ function envTrim(key) {
 export async function POST(request) {
   const destination = envTrim('DESTINATION_EMAIL');
   const oauthUser = envTrim('EMAIL_OAUTH_USER');
-  const clientId = envTrim('GOOGLE_OAUTH_CLIENT_ID');
-  const clientSecret = envTrim('GOOGLE_OAUTH_CLIENT_SECRET');
-  const refreshToken = envTrim('GOOGLE_OAUTH_REFRESH_TOKEN');
+  const appPassword = envTrim('EMAIL_APP_PASSWORD');
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('[contact] dev — OAuth mail env (server terminal):', {
-      DESTINATION_EMAIL: destination ?? '(missing)',
-      EMAIL_OAUTH_USER: oauthUser ?? '(missing)',
-      GOOGLE_OAUTH_CLIENT_ID: clientId ?? '(missing)',
-      GOOGLE_OAUTH_CLIENT_SECRET:
-        clientSecret == null ? '(missing)' : `(set, length ${clientSecret.length})`,
-      GOOGLE_OAUTH_REFRESH_TOKEN:
-        refreshToken == null ? '(missing)' : `(set, length ${refreshToken.length})`,
+    console.log('[contact] dev — email env (server terminal):', {
+      DESTINATION_EMAIL: destination || '(missing)',
+      EMAIL_OAUTH_USER: oauthUser || '(missing)',
+      EMAIL_APP_PASSWORD:
+        !appPassword ? '(missing)' : `(set, length ${appPassword.length})`,
     });
   }
 
-  if (!destination || !oauthUser || !clientId || !clientSecret || !refreshToken) {
+  if (!destination || !oauthUser || !appPassword) {
     return NextResponse.json(
       { success: false, error: 'Email delivery is not configured on the server.' },
       { status: 503 }
@@ -111,11 +106,8 @@ export async function POST(request) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        type: 'OAuth2',
         user: oauthUser,
-        clientId,
-        clientSecret,
-        refreshToken,
+        pass: appPassword,
       },
     });
 
